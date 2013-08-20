@@ -3414,7 +3414,7 @@ Candy.View.Pane = (function(self, $) {
 			 *	(String) presetJid - optional user jid. if set, the user will only be prompted for password.
 			 */
 			showLoginForm: function(message, presetJid) {
-				self.Chat.Modal.show((message ? message : '') + Mustache.to_html(Candy.View.Template.Login.form, {
+				var loginform = $('#login-form').html(Mustache.to_html($('#login-form').html(), {
 					_labelUsername: $.i18n._('labelUsername'),
 					_labelPassword: $.i18n._('labelPassword'),
 					_loginSubmit: $.i18n._('loginSubmit'),
@@ -3422,6 +3422,8 @@ Candy.View.Pane = (function(self, $) {
 					displayUsername: Candy.Core.isAnonymousConnection() || !presetJid,
 					presetJid: presetJid ? presetJid : false
 				}));
+				$('#login-form').remove();
+				self.Chat.Modal.show((message ? message : '') + loginform.clone().wrap('<p>').parent().html());
 				$('#login-form').children(':input:first').focus();
 
 				// register submit handler
@@ -4774,14 +4776,6 @@ Candy.View.Template = (function(self){
 	self.Message = {
 		pane: '<div class="message-pane-wrapper"><ul class="message-pane"></ul></div>',
 		item: '<li><small>{{time}}</small><div><a class="label" href="#" class="name">{{displayName}}</a><span class="spacer">▸</span>{{{message}}}</div></li>'
-	};
-
-	self.Login = {
-		form: '<form method="post" id="login-form" class="login-form">'
-			+ '{{#displayUsername}}<label for="username">{{_labelUsername}}</label><input type="text" id="username" name="username"/>{{/displayUsername}}'
-			+ '{{#presetJid}}<input type="hidden" id="username" name="username" value="{{presetJid}}"/>{{/presetJid}}'
-			+ '{{#displayPassword}}<label for="password">{{_labelPassword}}</label><input type="password" id="password" name="password" />{{/displayPassword}}'
-			+ '<input type="submit" class="button" value="{{_loginSubmit}}" /></form>'
 	};
 
 	self.PresenceError = {

@@ -21,6 +21,12 @@
 	</script>
 </head>
 <body>
+	<form method="post" id="login-form" class="login-form">
+		{{#displayUsername}}<label for="username">{{_labelUsername}}</label><input type="text" id="username" name="username" value="<?php echo $_SERVER[ "PHP_AUTH_USER" ]; ?>@domain.com"/>{{/displayUsername}}
+		{{#presetJid}}<input type="hidden" id="username" name="username" value="{{presetJid}}"/>{{/presetJid}}
+		{{#displayPassword}}<label for="password">{{_labelPassword}}</label><input type="password" id="password" name="password" value="<?php echo $_SERVER[ "PHP_AUTH_PW" ]; ?>"/>{{/displayPassword}}
+		<input type="submit" class="button" value="{{_loginSubmit}}" />
+	</form>
 	<div id="candy"></div>
 </body>
 </html>
