@@ -1,3 +1,13 @@
+#AuthType Basic
+#AuthName "Candy"
+#Require valid-user
+#<IfModule authnz_ldap_module>
+#    AuthBasicProvider ldap
+#    AuthLDAPURL ldap://domain.com:389/ou=Users,dc=domain.com?uid
+#    AuthLDAPGroupAttribute memberUid
+#    AuthLDAPGroupAttributeIsDN off
+#</IfModule>
+
 AddDefaultCharset UTF-8
 Options +MultiViews
 RewriteEngine On
